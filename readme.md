@@ -1,8 +1,10 @@
-A tool for sending ducklings nfts in Play To Earn game Waves Ducks: 
+A tool for sending ducklings nfts in Play To Earn crypto game Waves Ducks on Waves Blockchain: 
 
 Game overview: https://help.wavesducks.com/en/articles/5876844-waves-ducks-overview
 
 Using:
+
+clone this repo, then inside it run next commands (Node.js should be installed)
 
 npm install
 
