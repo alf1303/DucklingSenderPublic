@@ -44,23 +44,28 @@ class App extends React.Component {
         return res
     }
 
-    authFuncKeeper() {
+    async authFuncKeeper() {
         const authData = {data: "Auth on my site"};
         if(WavesKeeper) {
-            WavesKeeper.auth( authData )
-            .then(auth => {
-                console.log(auth);
-                await this.getDucklings(user.address);
-                this.setState(state => ({
-                    address: auth.address,
-                    publicKey: auth.publicKey
-                }))
-            }).catch(error => {
-                console.log(error);
-                this.setState(state => ({
-                    error: error.message
-                }))
-            })
+            var auth = await WavesKeeper.auth( authData );
+            await this.getDucklings(auth.address);
+            this.setState(state => ({
+                address: auth.address,
+                publicKey: auth.publicKey
+            }))
+            // .then(auth => {
+            //     console.log(auth);
+            //     await this.getDucklings(auth.address);
+            //     this.setState(state => ({
+            //         address: auth.address,
+            //         publicKey: auth.publicKey
+            //     }))
+            // }).catch(error => {
+            //     console.log(error);
+            //     this.setState(state => ({
+            //         error: error.message
+            //     }))
+            // })
         } else {
             alert("To Auth WavesKeeper should be installed");
         }
