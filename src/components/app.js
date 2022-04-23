@@ -27,12 +27,30 @@ class App extends React.Component {
         this.saveRecValue = this.saveRecValue.bind(this);
     }
 
+    async getDucklings(addr) {
+        this.state.ducklings_list = []
+        var res = []
+        var url = node_url + "/assets/nft/" + addr + "/limit/1000";
+        const resp = await fetch(node_url + "/assets/nft/" + addr + "/limit/1000")
+        var ducl_list = await resp.json()
+        ducl_list.forEach(element => {
+            let nam = element['name']
+            let id = element['assetId']
+            // var dd = id + " : " + nam
+            var dd = [id, nam]
+            this.state.ducklings_list.push(dd)
+            // console.log(res)
+        });
+        return res
+    }
+
     authFuncKeeper() {
         const authData = {data: "Auth on my site"};
         if(WavesKeeper) {
             WavesKeeper.auth( authData )
             .then(auth => {
                 console.log(auth);
+                await this.getDucklings(user.address);
                 this.setState(state => ({
                     address: auth.address,
                     publicKey: auth.publicKey
@@ -54,27 +72,12 @@ class App extends React.Component {
         const user = await signer.login();
         console.log(user);
         if(user != null) {
+            await this.getDucklings(user.address);
             this.setState(state => ({
                 address: user.address,
                 publicKey: user.publicKey
             }))
         }
-    }
-
-    async getDucklings(addr) {
-        var res = []
-        var url = node_url + "/assets/nft/" + addr + "/limit/1000";
-        const resp = await fetch(node_url + "/assets/nft/" + addr + "/limit/1000")
-        var ducl_list = await resp.json()
-        ducl_list.forEach(element => {
-            let nam = element['name']
-            let id = element['assetId']
-            // var dd = id + " : " + nam
-            var dd = [id, nam]
-            this.state.ducklings_list.push(dd)
-            // console.log(res)
-        });
-        return res
     }
 
     async authFuncSignerSeed() {
