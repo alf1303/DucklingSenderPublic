@@ -159,6 +159,8 @@ class App extends React.Component {
                     <div>My Addresses:</div>
                     <li>Address1: 3PAr...</li>
                     <li>Address2: 3PTZa...</li>
+                    <li>Address1: 3PAr...</li>
+                    <li>Address2: 3PTZa...</li>
                 </ul>
                 </div>
             </div>
